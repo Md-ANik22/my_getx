@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
+import '../studentModel.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
@@ -18,64 +19,64 @@ class HomeView extends GetView<HomeController> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: 5,),
-                  Row(
-                    children: [
-                      Text("Student Name",style: TextStyle(fontSize: 12),),
-                      SizedBox(width: 10,),
-                      Text("Number: ${controller.count.value}",style: TextStyle(fontSize: 12),),
-                      // IconButton(onPressed: (){
-                      //   controller.spanList.removeAt(spanNumber) ;
-                      // }, icon: Icon(Icons.close))
-                    ],
-                  ),
-                  SizedBox(height: 5,),
-                  TextFormField(
-
-                    decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(6,14,14,0),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(
-                            color: Colors.lightGreen,
-                          ),
-                        ),
-
-                        focusColor:Colors.lightGreen,
-                        filled: true,
-                        fillColor: Colors.white),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: Text("Student id",style: TextStyle(fontSize: 12),),
-                  ),
-                  TextFormField(
-                    initialValue: 0.toString(),
-                    decoration: InputDecoration(
-                        isDense: true,
-                        contentPadding: EdgeInsets.fromLTRB(6,14,14,0),
-                        border: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8.0),
-                          borderSide: BorderSide(
-                            color: Colors.lightGreen,
-                          ),
-                        ),
-
-                        focusColor: Colors.lightGreen,
-                        filled: true,
-                        fillColor: Colors.white),
-                  ),
+                  // SizedBox(height: 5,),
+                  // Row(
+                  //   children: [
+                  //     Text("Student Name",style: TextStyle(fontSize: 12),),
+                  //     SizedBox(width: 10,),
+                  //     Text("Number: ${controller.count.value}",style: TextStyle(fontSize: 12),),
+                  //     // IconButton(onPressed: (){
+                  //     //   controller.spanList.removeAt(spanNumber) ;
+                  //     // }, icon: Icon(Icons.close))
+                  //   ],
+                  // ),
+                  // SizedBox(height: 5,),
+                  // TextFormField(
+                  //
+                  //   decoration: InputDecoration(
+                  //       isDense: true,
+                  //       contentPadding: EdgeInsets.fromLTRB(6,14,14,0),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: const BorderRadius.all(
+                  //           Radius.circular(8.0),
+                  //         ),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8.0),
+                  //         borderSide: BorderSide(
+                  //           color: Colors.lightGreen,
+                  //         ),
+                  //       ),
+                  //
+                  //       focusColor:Colors.lightGreen,
+                  //       filled: true,
+                  //       fillColor: Colors.white),
+                  // ),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(vertical: 6),
+                  //   child: Text("Student id",style: TextStyle(fontSize: 12),),
+                  // ),
+                  // TextFormField(
+                  //   initialValue: 0.toString(),
+                  //   decoration: InputDecoration(
+                  //       isDense: true,
+                  //       contentPadding: EdgeInsets.fromLTRB(6,14,14,0),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: const BorderRadius.all(
+                  //           Radius.circular(8.0),
+                  //         ),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8.0),
+                  //         borderSide: BorderSide(
+                  //           color: Colors.lightGreen,
+                  //         ),
+                  //       ),
+                  //
+                  //       focusColor: Colors.lightGreen,
+                  //       filled: true,
+                  //       fillColor: Colors.white),
+                  // ),
                 ],
               ),
               SizedBox(height: 5,),
@@ -101,7 +102,7 @@ class HomeView extends GetView<HomeController> {
                         ),
                         SizedBox(height: 5,),
                         TextFormField(
-
+                          controller: controller.studentName,
                           decoration: InputDecoration(
                               isDense: true,
                               contentPadding: EdgeInsets.fromLTRB(6,14,14,0),
@@ -126,8 +127,9 @@ class HomeView extends GetView<HomeController> {
                           child: Text("Student id",style: TextStyle(fontSize: 12),),
                         ),
                         TextFormField(
-                          initialValue: 0.toString(),
+                          controller: controller.studentId,
                           decoration: InputDecoration(
+
                               isDense: true,
                               contentPadding: EdgeInsets.fromLTRB(6,14,14,0),
                               border: OutlineInputBorder(
@@ -150,7 +152,7 @@ class HomeView extends GetView<HomeController> {
                         Obx(()=>ListView.builder(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),
-                            itemCount: controller.hobbyaddList.length,
+                            itemCount: controller.hobby.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Obx(
                                     () => Container(
@@ -182,6 +184,7 @@ class HomeView extends GetView<HomeController> {
                                     }).toList(),
                                     onChanged: (newValue) {
                                       print(newValue);
+                                      controller.hobbyVal.value=newValue.toString();
                                     },
                                   ),
                                 ),
@@ -200,6 +203,9 @@ class HomeView extends GetView<HomeController> {
                             onPressed: () {
                               controller.hobbyIncrement();
                               controller.hobbyaddList.add(controller.countHobby.value);
+                              controller.hobby.add(Hobby(
+                                hobbyName: controller.hobbyVal.value
+                              ));
                             },
                             child: Text(
                               "Add Student Hobby",
@@ -216,6 +222,16 @@ class HomeView extends GetView<HomeController> {
                   onPressed: () {
                     controller.increment();
                     controller.studentList.add(controller.count.value);
+
+                    controller.student.add(Student(
+                      hobby:[],
+                      id:  controller.studentId.text,
+                      name: controller.studentName.text,
+
+                    ));
+
+
+
                   },
                   child: Text(
                     "Add Student ",
